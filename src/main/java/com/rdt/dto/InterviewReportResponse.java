@@ -1,20 +1,22 @@
 package com.rdt.dto;
 
+import lombok.Data;
+
 import java.util.List;
 
 public class InterviewReportResponse {
 
-    private String sessionId;
+    private Long sessionId;
     private int totalQuestions;
     private double averageScore;
     private String overallFeedback;
     private List<QuestionFeedback> details;
 
-    public String getSessionId() {
+    public Long getSessionId() {
         return sessionId;
     }
 
-    public void setSessionId(String sessionId) {
+    public void setSessionId(Long sessionId) {
         this.sessionId = sessionId;
     }
 
@@ -48,16 +50,5 @@ public class InterviewReportResponse {
 
     public void setDetails(List<QuestionFeedback> details) {
         this.details = details;
-    }
-
-    @Override
-    public String toString() {
-        return "InterviewReportResponse{" +
-                "sessionId='" + sessionId + '\'' +
-                ", totalQuestions=" + totalQuestions +
-                ", averageScore=" + averageScore +
-                ", overallFeedback='" + overallFeedback + '\'' +
-                ", details=" + details +
-                '}';
     }
 }

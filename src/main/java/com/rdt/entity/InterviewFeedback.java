@@ -3,7 +3,6 @@ package com.rdt.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
-@Data
 @Entity
 @Table(name = "interview_feedback")
 public class InterviewFeedback {
@@ -27,5 +26,51 @@ public class InterviewFeedback {
     @JoinColumn(name = "session_id", nullable = false)
     private InterviewSession interviewSession;
 
-    // getters & setters
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Integer getTotalScore() {
+        return totalScore;
+    }
+
+    public void setTotalScore(Integer totalScore) {
+        this.totalScore = totalScore;
+    }
+
+    public String getStrengths() {
+        return strengths;
+    }
+
+    public void setStrengths(String strengths) {
+        this.strengths = strengths;
+    }
+
+    public String getWeaknesses() {
+        return weaknesses;
+    }
+
+    public void setWeaknesses(String weaknesses) {
+        this.weaknesses = weaknesses;
+    }
+
+    public String getImprovementSuggestions() {
+        return improvementSuggestions;
+    }
+
+    public void setImprovementSuggestions(String improvementSuggestions) {
+        this.improvementSuggestions = improvementSuggestions;
+    }
+
+    public InterviewSession getInterviewSession() {
+        return interviewSession;
+    }
+
+    public void setInterviewSession(InterviewSession interviewSession) {
+        this.interviewSession = interviewSession;
+    }
 }

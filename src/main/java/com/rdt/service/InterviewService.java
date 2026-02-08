@@ -8,5 +8,5 @@ public interface InterviewService {
 
     EvaluateAnswerResponse evaluateAnswer(EvaluateAnswerRequest request);
 
-    InterviewReportResponse getInterviewReport(String sessionId);
+    InterviewReportResponse getInterviewReport(Long sessionId);
 }

@@ -2,7 +2,11 @@ package com.rdt.controller;
 
 import com.rdt.dto.*;
 import com.rdt.service.InterviewService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api/v1/interview")
@@ -15,20 +19,20 @@ public class InterviewController {
     }
 
     @PostMapping("/start")
-    public StartInterviewResponse startInterview(
-            @RequestBody StartInterviewRequest request) {
-        return interviewService.startInterview(request);
+    public ResponseEntity<StartInterviewResponse> startInterview(@Valid @RequestBody StartInterviewRequest request) {
+        StartInterviewResponse response = interviewService.startInterview(request);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
     @PostMapping("/evaluate")
-    public EvaluateAnswerResponse evaluateAnswer(
-            @RequestBody EvaluateAnswerRequest request) {
-        return interviewService.evaluateAnswer(request);
+    public ResponseEntity<EvaluateAnswerResponse> evaluateAnswer(@Valid @RequestBody EvaluateAnswerRequest request) {
+        EvaluateAnswerResponse response = interviewService.evaluateAnswer(request);
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/report/{sessionId}")
-    public InterviewReportResponse getReport(
-            @PathVariable String sessionId) {
-        return interviewService.getInterviewReport(sessionId);
+    public ResponseEntity<InterviewReportResponse> getReport(@PathVariable Long sessionId) { // Changed String to Long for consistency
+        InterviewReportResponse response = interviewService.getInterviewReport(sessionId);
+        return ResponseEntity.ok(response);
     }
 }

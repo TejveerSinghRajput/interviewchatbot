@@ -1,41 +1,34 @@
 package com.rdt.dto;
 
+import lombok.Data;
+
+@Data
 public class StartInterviewRequest {
+    private Long userId;        // Changed from candidateName to userId to match Service
+    private String domain;      // e.g., Java, Spring Boot
+    private String difficulty;  // EASY, MEDIUM, HARD
 
-    private String candidateName;
-    private String interviewType;
-    private int totalQuestions;
-
-    public String getCandidateName() {
-        return candidateName;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setCandidateName(String candidateName) {
-        this.candidateName = candidateName;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
-    public String getInterviewType() {
-        return interviewType;
+    public String getDomain() {
+        return domain;
     }
 
-    public void setInterviewType(String interviewType) {
-        this.interviewType = interviewType;
+    public void setDomain(String domain) {
+        this.domain = domain;
     }
 
-    public int getTotalQuestions() {
-        return totalQuestions;
+    public String getDifficulty() {
+        return difficulty;
     }
 
-    public void setTotalQuestions(int totalQuestions) {
-        this.totalQuestions = totalQuestions;
-    }
-
-    @Override
-    public String toString() {
-        return "StartInterviewRequest{" +
-                "candidateName='" + candidateName + '\'' +
-                ", interviewType='" + interviewType + '\'' +
-                ", totalQuestions=" + totalQuestions +
-                '}';
+    public void setDifficulty(String difficulty) {
+        this.difficulty = difficulty;
     }
 }
