@@ -1,3 +1,5 @@
+   ALTER TABLE users ADD INDEX idx_email (email);
+
     create table interview_answers (
         score integer,
         id bigint not null auto_increment,
@@ -179,3 +181,4 @@ Hibernate:
        add constraint FKoa5rgsdu7rqa8y74yph1fuqe5
        foreign key (user_id)
        references users (id)
+

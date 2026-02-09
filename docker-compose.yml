@@ -7,7 +7,7 @@ services:
 #    container_name: interview-db
 #    environment:
 #      MYSQL_DATABASE: interview_db
-#      MYSQL_ROOT_PASSWORD:
+#      MYSQL_ROOT_PASSWORD: Npst@12345
 #    ports:
 #      - "3306:3306"
 #    extra_hosts:
