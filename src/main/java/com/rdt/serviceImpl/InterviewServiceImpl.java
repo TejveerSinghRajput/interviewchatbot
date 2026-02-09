@@ -5,6 +5,7 @@ import com.rdt.entity.*;
 import com.rdt.repository.*;
 import com.rdt.service.InterviewService;
 import org.springframework.ai.chat.model.ChatModel;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,7 +29,7 @@ public class InterviewServiceImpl implements InterviewService {
                                 InterviewAnswerRepository answerRepository,
                                 UserRepository userRepository,
                                 InterviewFeedbackRepository feedbackRepository,
-                                ChatModel chatModel) {
+                                @Qualifier("ollamaChatModel") ChatModel chatModel) {
         this.sessionRepository = sessionRepository;
         this.questionRepository = questionRepository;
         this.answerRepository = answerRepository;

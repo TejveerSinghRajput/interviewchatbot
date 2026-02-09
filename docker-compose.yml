@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  # 1. MySQL Database
+#  db:
+#    image: mysql:8.0
+#    container_name: interview-db
+#    environment:
+#      MYSQL_DATABASE: interview_db
+#      MYSQL_ROOT_PASSWORD:
+#    ports:
+#      - "3306:3306"
+#    extra_hosts:
+#      - "host.docker.internal:host-gateway"
+#    volumes:
+#      - mysql_data:/var/lib/mysql
+
+  # 2. Faster-Whisper (Open Source Voice-to-Text)
+  whisper:
+    image: fedirz/faster-whisper-server:latest-cpu
+    container_name: interview-whisper
+    ports:
+      - "10300:10300"
+
+  # 3. Ollama (The Brain - runs your LLM)
+  ollama:
+    image: ollama/ollama:latest
+    container_name: interview-ollama
+    ports:
+      - "11434:11434"
+
+  # 4. Your Spring Boot App (interviewchatbot)
+  app:
+    build: .
+    container_name: interviewchatbot-app
+    depends_on:
+#      - db
+      - whisper
+      - ollama
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./config:/app/config
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://host.docker.internal:3306/interview_db
+      - SPRING_CONFIG_LOCATION=file:/app/config/application.properties
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+volumes:
+  mysql_data:

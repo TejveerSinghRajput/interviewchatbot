@@ -1,0 +1,43 @@
+Step 1 (Generate JAR): Run mvn clean package in your terminal to create the file in the target/ folder.
+mvn clean package
+
+Step 2 check the jar name in Dockerfile
+ls target/interviewchatbot-0.0.1-SNAPSHOT.jar
+
+Step 3 (Build Image): Run docker build -t interviewchatbot . from the root directory.
+docker build -t interviewchatbot .
+Step 4 (Run via Compose): Since you have a docker-compose.yml that uses build: ., you can simply run docker-compose up --build to start the app and your MySQL database together.
+docker-compose up --build
+
+Step 5 To start your entire project
+docker-compose up
+
+############# Run this to stop and remove
+docker stop interview-db
+docker rm interview-db
+########## to check all services running
+docker ps
+
+############# restart app
+docker-compose restart app
+
+########################
+
+# 1. Stop the current app container
+docker-compose stop app
+
+# 2. Re-package the JAR to include property changes
+mvn clean package -DskipTests
+
+# 3. Rebuild and Start
+docker-compose up --build -d app
+
+# 4. To check logs
+docker logs -f interviewchatbot-app
+
+# Check if anything is listening on 3306
+netstat -ano | findstr :3306
+
+##### restart
+docker-compose down
+docker-compose up --build -d
