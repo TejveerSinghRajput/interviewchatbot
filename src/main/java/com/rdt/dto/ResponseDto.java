@@ -4,7 +4,9 @@ import lombok.Data;
 
 @Data
 public class ResponseDto {
-    String msg;
-    String msgId;
-    String message;
+    private String msg;
+    private String msgId;
+    private String message;
+    private String userCount;
+
 }

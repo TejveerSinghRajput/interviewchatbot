@@ -1,3 +1,4 @@
+________________________________________________________________________________________
 Step 1 (Generate JAR): Run mvn clean package in your terminal to create the file in the target/ folder.
 mvn clean package
 
@@ -11,8 +12,8 @@ docker-compose up --build
 
 Step 5 To start your entire project
 docker-compose up
-
-############# Run this to stop and remove
+______________________________________________________________________________________________
+############# Run this to stop and remove services
 docker stop interview-db
 docker rm interview-db
 ########## to check all services running
@@ -23,21 +24,25 @@ docker-compose restart app
 
 ########################
 
-# 1. Stop the current app container
+**************************************************************
+# 1. Stop the current app container                          *
 docker-compose stop app
 
-# 2. Re-package the JAR to include property changes
+# 2. Re-package the JAR to include property changes          *
 mvn clean package -DskipTests
-
-# 3. Rebuild and Start
+                                                             *
+# 3. Rebuild and Start                                       *
 docker-compose up --build -d app
-
-# 4. To check logs
+                                                              *
+# 4. To check docker logs
 docker logs -f interviewchatbot-app
+                                                              *
+***************************************************************
 
 # Check if anything is listening on 3306
 netstat -ano | findstr :3306
 
-##### restart
+##### restart and start every application use given command
 docker-compose down
+mvn clean package -DskipTests
 docker-compose up --build -d

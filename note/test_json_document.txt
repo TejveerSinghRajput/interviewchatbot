@@ -1,0 +1,48 @@
+1. user registration
+url : http://localhost:8080/api/v1/users/register
+Request :
+{
+  "fullName": "Tejveer Singh",
+  "email": "tejveertest@gmail.com",
+  "password": "Test@123"
+}
+
+Response:
+{
+  "msg": "SUCCESS",
+  "msgId": "0",
+  "message": "User registered successfully !"
+}
+
+4. url : http://localhost:8080/api/v1/interview/start
+Request :
+{
+  "domain": "Java Developer",
+  "difficulty": "Medium",
+  "emailId": "tejveertest@gmail.com"
+}
+
+Response :
+{
+  "sessionId": "7",
+  "questionId": "11",
+  "questionText": "Explain the core concepts of Java Developer and its importance in modern architecture."
+}
+
+5. url : http://localhost:8080/api/v1/interview/evaluate
+
+{
+  "sessionId": "7",  // change when new interview start take from start api response.
+  "questionId": "15", // change every time give answer it get from response.
+  "answerText": "We just use synchronized blocks everywhere because it's easier to write. If the system slows down during UPI peak hours."
+}
+
+{
+  "score": 2,
+  "feedback": "The provided answer demonstrates a lack of understanding regarding the importance and implementation of proper synchronization mechanisms within concurrent systems. A well-designed payment gateway system using Java must ensure that lock ordering policies are meticulously enforced to prevent deadlocks and reduce thread contention which can significantly degrade performance during high concurrency scenarios, such as UPI peak hours mentioned in the question. Instead of relying on simplistic synchronized blocks throughout without a strategy for strict lock ordering or understanding how this affects system throughput under load, it is essential to develop more sophisticated concurrent programming practices that ensure thread safety and scalability.\n\nMoreover, while adding more RAM might seem like an immediate solution to performance issues during peak times, such actions can mask underlying problems with concurrency control rather than solve them effectively for the long term. Using Java Management Extensions (JMX) and tools like Java Flight Recorder is critical in monitoring application behavior under load without solely relying on console logs which might not provide enough granularity or real-time performance data needed to understand thread contention problems fully.\n\nThread contention mitigation strategies such as lock hierarchy, timeout mechanisms for locks, and the use of concurrent collections from `java.util.concurrent` package are crucial techniques that should be employed in a UPI payment gateway system's design or when refactoring existing code to handle high concurrency efficiently. Metrics demonstrating these strategies’ effectiveness could include response times before and after implementing them, the frequency of deadlock occurrences (if any), CPU utilization percentages during concurrent operations, thread dumps taken at various load levels, etc., which would provide tangible evidence for their impact on system performance.\n\nA more informed approach should focus firstly on properly understanding concurrency issues within your Java application using appropriate profiling tools and then applying best practices in synchronized code design along with monitoring through JMX or other advanced toolsets to ensure the robustness of concurrent operations, rather than resorting to simple solutions that might not address complex concurrency challenges.",
+  "interviewComplete": true,  // when interview is complete then return true otherwise false.
+  "nextQuestionId": null,     // Return null if interview is completed.
+  "nextQuestionText": null    // Return null if interview is completed.
+}
+
+

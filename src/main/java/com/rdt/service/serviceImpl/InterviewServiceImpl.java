@@ -42,10 +42,10 @@ public class InterviewServiceImpl implements InterviewService {
     @Override
     @Transactional
     public StartInterviewResponse startInterview(StartInterviewRequest request) {
-        log.info("Starting new interview session for userId: {} in domain: {}", request.getUserId(), request.getDomain());
+        log.info("Starting new interview session for emailId: {} in domain: {}", request.getEmailId(), request.getDomain());
         try {
-            User user = userRepository.findById(request.getUserId())
-                    .orElseThrow(() -> new RuntimeException("User not found with ID: " + request.getUserId()));
+            User user = userRepository.findByEmail(request.getEmailId())
+                    .orElseThrow(() -> new RuntimeException("User not found with given emailId: " + request.getEmailId()));
 
             InterviewSession session = new InterviewSession();
             session.setDomain(request.getDomain());
@@ -56,7 +56,7 @@ public class InterviewServiceImpl implements InterviewService {
 
             // AI Generation for the FIRST question
             String prompt = String.format("Generate a unique, technical opening interview question for a %s role. " +
-                    "Keep it under 50 words. Difficulty: %s", request.getDomain(), request.getDifficulty());
+                    "Keep it under 20 words. Difficulty: %s", request.getDomain(), request.getDifficulty());
 
             String aiFirstQuestion;
             try {
@@ -156,11 +156,21 @@ public class InterviewServiceImpl implements InterviewService {
 
     private String generateNextQuestion(String lastAnswer, InterviewQuestion prevQ) {
         try {
-            String prompt = "Based on the answer: '" + lastAnswer + "', ask a technical follow-up for " + prevQ.getTopic() + ". Max 50 words.";
+            log.info("generateNextQuestion method ()");
+            String prompt = String.format(
+                    "The candidate just said: '%s'. " +
+                            "As a technical interviewer, ask a follow-up question regarding %s. " +
+                            "Focus on implementation details or real-world trade-offs. " +
+                            "Your response must be between 10 and 50 words.",
+                    lastAnswer, prevQ.getTopic());
+
             return chatModel.call(prompt);
         } catch (Exception e) {
             log.error("Next question generation failed: {}", e.getMessage());
-            return "Can you elaborate on the best practices for implementing " + prevQ.getTopic() + " in a distributed system?";
+            // Standardized fallback that meets your 20-50 word requirement
+            return "That is an interesting perspective on " + prevQ.getTopic() + ". " +
+                    "In a high-scale environment like a UPI payment gateway, how would you handle " +
+                    "distributed transactions or eventual consistency to ensure data integrity across microservices?";
         }
     }
 

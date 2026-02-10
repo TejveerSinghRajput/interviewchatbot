@@ -6,7 +6,6 @@ import lombok.Data;
 
 @Data
 public class StartInterviewRequest {
-    private Long userId;        // Changed from candidateName to userId to match Service
     private String domain;      // e.g., Java, Spring Boot
     private String difficulty;  // EASY, MEDIUM, HARD
     @NotBlank
@@ -19,14 +18,6 @@ public class StartInterviewRequest {
 
     public void setEmailId(String emailId) {
         this.emailId = emailId;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
     }
 
     public String getDomain() {
