@@ -35,7 +35,7 @@ public class UserController {
         return ResponseEntity.ok(userService.registerUser(user));
     }
 
-    @GetMapping("/{userId}/check-limit")
+    @GetMapping("/checklimit/{emailId}")
     @Operation(summary = "Check if user has reached the daily limit of 5 interviews")
     public ResponseEntity<String> checkLimit(@PathVariable String emailId) {
         if (userService.canUserGiveInterview(emailId)) {

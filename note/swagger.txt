@@ -1,0 +1,2 @@
+1. To start swagger simply paste given url in any browser
+http://localhost:8080/swagger-ui/index.html#/
